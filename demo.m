@@ -1,10 +1,17 @@
+% read filename
+fp = fopen('/media/SecondDisk/yanpengxiang/dataset/MSRN/test_id.txt', 'r');
+C = textscan(fp, '%s %*[^\n]');
+filenames = C{1};
+fclose(fp);
 
+I = imreadRGB(fullfile('/media/SecondDisk/yanpengxiang/dataset/MSRN/image', [filenames{2}, '.jpg']));
 
-I = imreadRGB(fullfile('birds.jpg'));
 imsz = [size(I,1), size(I,2)];
 
 tic;
-[P, S] = getProposals(I, net, param);
+[P, S, M] = getProposals(I, net, param);
+figure();
+imshow(M);
 res = propOpt(P, S, param);
 
 % scale bboxes to full size
@@ -13,7 +20,7 @@ res = bsxfun(@times, res, imsz([2 1 2 1])');
 % optional window refining process
 resRefine = refineWin(I, res, net, param);
 toc
-
+figure();
 subplot(1,2,1)
 imshow(I)
 for i = 1:size(res,2)

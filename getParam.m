@@ -6,7 +6,7 @@ param.lambda = 0.075;
 param.gamma = 1;
 param.phi = log(0.3);
 % The maximum output number
-param.maxnum = 30;
+param.maxnum = 10;
 % By default, we perturb the initialization of our optimization for better
 % local maxima
 param.perturb = true;
@@ -23,14 +23,14 @@ param.roiExpand = 1;
 load center100
 param.center = center;
 % The following parameters are for the CNN model
-param.protoFile = fullfile('model', modelName, 'deploy.prototxt');
-param.modelFile = fullfile('model', modelName, ...
+param.protoFile = fullfile('/media/SecondDisk/yanpengxiang/Instance-Saliency/pipeline/SOD/model', modelName, 'deploy.prototxt');
+param.modelFile = fullfile('/media/SecondDisk/yanpengxiang/Instance-Saliency/pipeline/SOD/model', modelName, ...
     sprintf('%s_SOD_finetune.caffemodel', modelName));
 param.useGPU = true;
-param.GPUID = 0;
-param.width = 224;
-param.height = 224;
-param.batchSize = 10;
+param.GPUID = 2;
+param.width = 256;
+param.height = 256;
+param.batchSize = 1;
 param.imageMean = single(repmat(reshape([103.939 116.779 123.68],1,1,3),...
     [param.height, param.width, 1]));
 
